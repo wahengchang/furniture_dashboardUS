@@ -46,4 +46,18 @@ router.post('/', function(req, res, next) {
   })
 })
 
+
+// 新增 Todo 项目
+router.get('/syncWithMoltin', function(req, res, next) {
+    AV.Cloud.run('syncWithMoltin', {}).then(function(result) {
+      // result is 'Hello world!'
+      console.log(result);
+      res.send(result);
+    }, function(error) {
+      res.send(error);
+      // error
+      console.log(error);
+    });
+})
+
 module.exports = router;
