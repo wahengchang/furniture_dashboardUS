@@ -1,0 +1,25 @@
+<div class="page page-table">
+    <section class="panel panel-default table-dynamic"  ng-show="isShowPage" >
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>{{configs.title}}</strong></div>
+        <div class="table-filters">
+            <div class="row">
+                <div class="col-xs-6">
+                    <form ng-submit="search()">
+                        <input type="text" placeholder="Search..." class="form-control" ng-model="searchText">
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <button ng-if="!configs.maxItems" class="btn btn-primary pull-right" ng-click="add()">新增</button>
+                </div>
+            </div>
+        </div>
+        <parse-table list="list" rows="configs.rows" class="panel"></parse-table>
+        <footer class="table-footer">
+            <div class="row">
+                <div class="text-center">
+                    <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="10" class="pagination-sm" boundary-links="true" ng-change="pageChanged()"></pagination>
+                </div>
+            </div>
+        </footer>
+    </section>
+</div>

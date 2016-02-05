@@ -1,0 +1,20 @@
+<div class="page">
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>{{configs.title}}</strong></div>
+        <div class="panel-body" ng-if="!!item">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <form role="form" novalidate name="commonItemForm">
+                        <parse-fieldset ng-if="item" configs="configs" item="item"> </parse-fieldset>
+                        <button class="btn btn-success" ng-if="!item.objectId" ng-disabled="!commonItemForm.$valid" ng-click="save()">暫存產生上傳ID</button>
+                        <button class="btn btn-success" ng-if="item.objectId" ng-disabled="!commonItemForm.$valid" ng-click="save(true)">儲存並回上一頁</button>
+                        <button class="btn btn-default" ng-if="!configs.readonly" ng-click="cancel()">取消</button>
+                        <button class="btn btn-default" ng-if="configs.readonly" ng-click="cancel()">回上頁</button>
+                        <hr />
+                        <product-grid ng-if="productGrid" configs="productGrid"></product-grid>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
