@@ -11,7 +11,7 @@
                         <button class="btn btn-default" ng-if="!configs.readonly" ng-click="cancel()">取消</button>
                         <button class="btn btn-default" ng-if="configs.readonly" ng-click="cancel()">回上頁</button>
                         <hr />
-                        <product-grid ng-if="productGrid" configs="productGrid"></product-grid>
+                        <ref-grid ng-if="refGrid" configs="refGrid"></ref-grid>
                     </form>
                 </div>
             </div>

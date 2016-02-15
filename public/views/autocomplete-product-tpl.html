@@ -1,0 +1,6 @@
+<div class="autocomplete-template">
+    <div>
+        <img ng-src="{{data.images[0]}}" ng-if="data.images[0]" style="height:50px;" />
+        <span ng-bind-html="$highlight($getDisplayText())"></span>
+    </div>
+</div>

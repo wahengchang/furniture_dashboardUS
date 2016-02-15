@@ -1,0 +1,9 @@
+<div class="tag-template bg-primary">
+    <div >
+        <a ui-sref="products-edit({ objectId: data.objectId })" class="text-info" >
+            <img ng-src="{{data.images[0]}}" ng-if="data.images[0]" style="height:50px;" />
+            <span>{{$getDisplayText()}}</span>
+        </a>
+        <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+    </div>
+</div>

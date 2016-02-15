@@ -32,9 +32,15 @@
             'app.table',
             'app.task'
         ])
+        // us platform
+        .value('appId', 'zOeHyoBaS5BeossH2VYOUve2-MdYXbMMI')
+        .value('restKey', 'IrSIeFshPa3a4m7UjIqmnKEU')
         // development platform
-        .value('appId', '3xYQCC3PO6Y2KRogpgd6XkD4-gzGzoHsz')
-        .value('restKey', 'e9mr7cH5pL80TUoUat1mvkp7')
+        // .value('appId', '3xYQCC3PO6Y2KRogpgd6XkD4-gzGzoHsz')
+        // .value('restKey', 'e9mr7cH5pL80TUoUat1mvkp7')
+
+        // .value('appId', 'mMddyjSkBPchwip9IMchINuo-gzGzoHsz')
+        // .value('restKey', 'X4vsdHjyt8yOeAKbqxddLpCH')
         .value('_', window._)
         .value('sessionKey', 'iStaging')
         .run(function($rootScope, user, $state) {
@@ -56,7 +62,7 @@
         })
         .factory('getFileRest', function(getParseRest, appId, restKey, getSession) {
             return function() {
-                return getParseRest(appId, restKey, getSession(), 'https://api.leancloud.cn/1.1/files/', true);
+                return getParseRest(appId, restKey, getSession(), 'https://us-api.leancloud.cn/1.1/files/', true);
             };
         })
         .factory('getClassRest', function(getParseRest, appId, restKey, getSession) {
@@ -66,13 +72,13 @@
         })
         .factory('getBaseRest', function(getParseRest, appId, restKey, getSession) {
             return function() {
-                return getParseRest(appId, restKey, getSession(), 'https://api.leancloud.cn/1.1/');
+                return getParseRest(appId, restKey, getSession(), 'https://us-api.leancloud.cn/1.1/');
             };
         })
 
     .factory('getFunctionsRest', function(getParseRest, appId, restKey, getSession) {
         return function() {
-            return getParseRest(appId, restKey, getSession(), 'https://api.leancloud.cn/1.1/functions/');
+            return getParseRest(appId, restKey, getSession(), 'https://us-api.leancloud.cn/1.1/functions/');
         };
     })
 
@@ -83,8 +89,7 @@
                 if (!!baseUrl) {
                     RestangularConfigurer.setBaseUrl(baseUrl);
                 } else {
-                    console.log("asd");
-                    RestangularConfigurer.setBaseUrl('https://api.leancloud.cn/1.1/classes/');
+                    RestangularConfigurer.setBaseUrl('https://us-api.leancloud.cn/1.1/classes/');
                     RestangularConfigurer.addRequestInterceptor(function(element, operation) {
                         if ('put' === operation) {
                             delete element.createdAt;
@@ -150,7 +155,11 @@
                         'rows': [{
                             'title': '標題',
                             'name': 'title',
-                            'class': 'col-md-10'
+                            'class': 'col-md-4'
+                        }, {
+                            'title': 'description',
+                            'name': 'description',
+                            'class': 'col-md-4'
                         }, {
                             'func': ['edit', 'delete'],
                             'title': '#',
@@ -184,8 +193,10 @@
                             'type': 'textarea',
                             'maxlength': 300
                         }],
-                        'productGrid': {
-                            'filter': 'brand'
+                        'refGrid': {
+                            'filter': 'brand',
+                            'refClassName': 'Products',
+                            'stateName': 'products-edit'
                         },
                         'parseClassName': 'Brands',
                         'title': '品牌'
@@ -202,11 +213,11 @@
                         'rows': [{
                             'title': '標題',
                             'name': 'title',
-                            'class': 'col-md-8'
+                            'class': 'col-md-4'
                         }, {
-                            'title': 'Order',
-                            'name': 'order',
-                            'class': 'col-md-2'
+                            'title': 'description',
+                            'name': 'description',
+                            'class': 'col-md-4'
                         }, {
                             'func': ['edit', 'delete'],
                             'title': '#',
@@ -244,8 +255,10 @@
                             'type': 'textarea',
                             'maxlength': 300
                         }],
-                        'productGrid': {
+                        'refGrid': {
                             'filter': 'categorieIDs',
+                            'refClassName': 'Products',
+                            'stateName': 'products-edit',
                             'isArray': true
                         },
                         'parseClassName': 'Categories',
@@ -317,7 +330,9 @@
                             'name': 'productIds',
                             'title': '包含商品',
                             'type': 'refDataArray',
-                            'refClassName': 'Products'
+                            'refClassName': 'Products',
+                            'tagsTpl': 'views/tags-product-tpl.html',
+                            'autocompleteTpl': 'views/autocomplete-product-tpl.html'
                         }, {
                             'name': 'space',
                             'refClassName': 'Space',
@@ -341,6 +356,11 @@
                             'title': 'ios 3D 物件',
                             'type': 'objUploader'
 
+                        }, {
+                            'name': ' avaiable',
+                            'title': '上架確認',
+                            'type': 'checkbox',
+                            'label': 'Yes'
                         }],
                         'parseClassName': 'InteriorDesign',
                         'title': '風格'
@@ -385,6 +405,11 @@
                             'type': 'text',
                             'maxlength': 30
                         }],
+                        'refGrid': {
+                            'filter': 'type',
+                            'refClassName': 'InteriorDesign',
+                            'stateName': 'interior-design-edit'
+                        },
                         'parseClassName': 'InteriorType',
                         'title': '類型'
                     }
@@ -406,8 +431,8 @@
                             'name': 'title',
                             'class': 'col-md-6'
                         }, {
-                            'title': 'SKU',
-                            'name': 'sku',
+                            'title': 'avaiable',
+                            'name': 'avaiable',
                             'class': 'col-md-3'
                         }, {
                             'func': ['edit', 'delete'],
@@ -493,7 +518,18 @@
                             'name': 'ios_object_url',
                             'title': 'ios 3D 物件',
                             'type': 'objUploader'
+                        }, {
+                            'name': ' avaiable',
+                            'title': '上架確認',
+                            'type': 'checkbox',
+                            'label': 'Yes'
                         }],
+                        'refGrid': {
+                            'filter': 'productIds',
+                            'refClassName': 'InteriorDesign',
+                            'stateName': 'interior-design-edit',
+                            'isArray': true
+                        },
                         'parseClassName': 'Products',
                         'title': '產品'
                     }
@@ -518,6 +554,10 @@
                             'title': '#',
                             'class': 'col-md-2'
                         }],
+                        'refGrid': {
+                            'filter': 'categorieIDs',
+                            'isArray': true
+                        },
                         'addable': true,
                         'parseClassName': 'Space',
                         'title': '空間',
@@ -540,6 +580,11 @@
                             'title': 'Seq',
                             'type': 'number'
                         }],
+                        'refGrid': {
+                            'filter': 'space',
+                            'refClassName': 'InteriorDesign',
+                            'stateName': 'interior-design-edit'
+                        },
                         'parseClassName': 'Space',
                         'title': '空間'
                     }
@@ -3344,14 +3389,11 @@ angular.module('app')
         $scope.login = function() {
             $scope.message = '';
             var p1 = user.login($scope.auth);
-            p1 = p1.then(function(result) {
+            p1 = p1.then(function() {
                 $state.go('brands');
-            }, function(error) {
+            }, function() {
                 $scope.message = '您輸入的名稱或密碼有誤。';
-                console.log("login error")
-                console.log(error)
             });
-
             $rootScope.myPromise = p1;
         };
 
@@ -3490,6 +3532,9 @@ angular.module('app')
             itemsPerPage = 10,
             configs = $state.current.data;
 
+            console.log("CommonListPageCtrl");
+            console.log(configs);
+
         $scope.configs = configs;
         $scope.totalItems = 0;
         $scope.itemsPerPage = itemsPerPage;
@@ -3597,40 +3642,27 @@ angular.module('app')
 
         var configs = $state.current.data;
 
-        console.log("CommonItemPageCtrl:");
-        console.log(configs)
-
-
         $scope.configs = configs;
 
 
-        if (configs.productGrid) {
-            $scope.productGrid = _.extend({}, configs.productGrid);
-            $scope.productGrid.objectId = $stateParams.objectId;
-            $scope.productGrid.className = configs.parseClassName;
+        if (configs.refGrid && $stateParams.objectId) {
+            $scope.refGrid = _.extend({}, configs.refGrid);
+            $scope.refGrid.objectId = $stateParams.objectId;
+            $scope.refGrid.className = configs.parseClassName;
         }
-
 
         $scope.objectId = $stateParams.objectId;
 
-        // user.init(function() {
         if ($stateParams.objectId) {
             var p1 = getClassRest().one(configs.parseClassName, $stateParams.objectId).get();
             p1 = p1.then(function(result) {
-
-                console.log("$stateParams.objectId");
-                console.log(result);
-
-
                 $scope.item = result;
             });
             $rootScope.myPromise = p1;
         } else {
-            console.log("!$stateParams.objectId");
-
             $scope.item = {};
         }
-        //});
+
 
 
         $scope.cancel = $scope.back;
@@ -3638,53 +3670,28 @@ angular.module('app')
 
         $scope.save = function(withBack) {
             var p1;
-
-            console.log("111");
-
             if ($stateParams.objectId) {
                 p1 = $scope.item.save();
             } else {
-
-                console.log("2222");
                 var defaultObject = {};
-
-                console.log("configs");
-                console.log(configs);
-
                 _.each(configs.defaultObject, function(value, key) {
                     if (angular.isFunction(value)) {
-                        console.log("value()");
-                        console.log(value());
-                        console.log("value");
-                        console.log(value);
                         defaultObject[key] = value();
                     } else {
-                        console.log("value");
-                        console.log(value);
                         defaultObject[key] = value;
                     }
                 });
-
-                console.log("defaultObject");
-                console.log(defaultObject);
-                console.log("configs.parseClassName");
-                console.log(configs.parseClassName);
-
                 angular.extend($scope.item, defaultObject || {});
                 p1 = getClassRest().all(configs.parseClassName).post($scope.item);
-                console.log("22224444");
             }
 
 
             $rootScope.myPromise = p1.then(function(item) {
-                 console.log("333");
                 dialog.info('已儲存設定', function() {
 
                     if (withBack) {
-                        console.log("4444");
                         $scope.back();
                     } else {
-                        console.log("555");
                         $state.go($state.$current.name, {
                             objectId: item.objectId,
                             newly: null
@@ -3693,7 +3700,6 @@ angular.module('app')
 
                 });
             });
-                        console.log("666");
         };
     });
 
@@ -4211,7 +4217,7 @@ angular.module('app')
  * # objUploader
  */
 angular.module('app')
-    .directive('objUploader', function(iStagingUpload) {
+    .directive('objUploader', function(iStagingUpload, dialog) {
         return {
             templateUrl: 'views/obj-uploader.html',
             restrict: 'E',
@@ -4225,7 +4231,10 @@ angular.module('app')
 
                 $fileInput.bootstrapFileInput();
 
+                $scope.info = '';
+
                 $fileInput.on('change', function() {
+                    $scope.info = '上傳中...';
                     var file = this.files[0],
                         urlKey = encodeURIComponent($scope.className + '/' + $scope.item.objectId + '/3d/'),
                         fd = new FormData();
@@ -4233,7 +4242,11 @@ angular.module('app')
                     fd.append('file', file);
 
                     iStagingUpload(fd, urlKey).then(function(res) {
-                        $scope.item[$scope.attr.name] = res.downloadlink;
+                        $scope.info = '';
+
+                        dialog.info('上傳完成', function() {
+                            $scope.item[$scope.attr.name] = res.downloadlink;
+                        });
                     });
                 });
             }
@@ -4250,7 +4263,7 @@ angular.module('app')
  * # imageUploader
  */
 angular.module('app')
-    .directive('imageUploader', function(iStagingUpload, $timeout) {
+    .directive('imageUploader', function(iStagingUpload, $timeout, dialog) {
         return {
             templateUrl: 'views/image-uploader.html',
             restrict: 'E',
@@ -4261,10 +4274,11 @@ angular.module('app')
             },
             link: function postLink($scope, ele) {
                 var $fileInput = ele.find('input:file');
-
+                $scope.info = '';
                 $fileInput.bootstrapFileInput();
 
                 $fileInput.on('change', function() {
+                    $scope.info = '上傳中...';
                     var file = this.files[0],
                         urlKey = encodeURIComponent($scope.className + '/' + $scope.item.objectId + '/img/'),
                         fd = new FormData();
@@ -4272,9 +4286,14 @@ angular.module('app')
                     fd.append('file', file);
 
                     iStagingUpload(fd, urlKey).then(function(res) {
-                        $timeout(function() {
-                            $scope.item[$scope.attr.name] = [res.downloadlink];
-                        }, 1000);
+                        $scope.info = '';
+                        dialog.info('上傳完成', function() {
+                            $timeout(function() {
+
+                                $scope.item[$scope.attr.name] = [res.downloadlink];
+                            }, 1000);
+                        });
+
                     });
                 });
             }
@@ -4361,20 +4380,20 @@ angular.module('app')
 
 /**
  * @ngdoc directive
- * @name slimApp.directive:productGrid
+ * @name slimApp.directive:ref-grid
  * @description
- * # productGrid
+ * # ref-grid
  */
 angular.module('app')
-    .directive('productGrid', function(getClassRest) {
+    .directive('refGrid', function(getClassRest, $state) {
         return {
-            'templateUrl': 'views/product-grid.html',
+            'templateUrl': 'views/ref-grid.html',
             'restrict': 'E',
             'scope': {
                 'configs': '='
             },
             'link': function postLink($scope) {
-
+                $scope.$state = $state;
                 var configs = $scope.configs;
 
                 var restGetListParameter = {
@@ -4395,7 +4414,7 @@ angular.module('app')
                 }
 
                 getClassRest()
-                    .all('Products')
+                    .all(configs.refClassName)
                     .getList(restGetListParameter)
                     .then(function(result) {
                         $scope.list = result;
@@ -4417,8 +4436,8 @@ angular.module('app')
 angular.module('app')
     .directive('refDataArray', function(refData, _, $q) {
         return {
-            template: '<tags-input ng-model="tags" on-tag-added="onTagAdded($tag)" on-tag-removed="onTagRemoved($tag)" add-from-autocomplete-only="true" display-property="title" key-property="objectId"  class="ui-tags-input"   >' +
-                '<auto-complete source="loadTags($query)" min-length="1" ></auto-complete>' +
+            template: '<tags-input ng-model="tags" on-tag-added="onTagAdded($tag)" on-tag-removed="onTagRemoved($tag)" add-from-autocomplete-only="true" display-property="title" key-property="objectId"  class="ui-tags-input" template="{{attr.tagsTpl}}"  >' +
+                '<auto-complete source="loadTags($query)" min-length="1" template="{{attr.autocompleteTpl}}" ></auto-complete  >' +
                 '</tags-input>',
             restrict: 'E',
             scope: {
