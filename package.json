@@ -15,13 +15,15 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.12.3",
+    "broken-link-checker": "^0.7.0",
     "cookie-parser": "^1.3.5",
     "ejs": "2.3.1",
     "express": "4.12.3",
     "leanengine": "^0.2.0",
-    "underscore": "^1.8.3",
     "lodash": "^4.0.1",
+    "mandrill-api": "^1.0.45",
+    "moltin": "^1.0.0",
     "q": "^1.4.1",
-    "moltin": "^1.0.0"
+    "underscore": "^1.8.3"
   }
 }

@@ -1,6 +1,7 @@
 var AV = require('leanengine');
 var _ = require("underscore");
 var moltinAPI = require('./moltin.js')
+var checkAPI = require('./cloud/backup_check.js')
 
 
 AV.Cloud.define('createSuperUser', function(request, response) {
@@ -64,6 +65,45 @@ AV.Cloud.define("getAllProducts", function(request, response) {
         response.success(JSON.stringify(data));
     });
 })
+
+
+AV.Cloud.define('checkdownloadlink', function(request, response) {
+        checkAPI.hello({
+            success: function (returnValue1){
+
+            var brokenlinkArr=returnValue1.result;
+            var body;
+
+            if(!brokenlinkArr){
+                body="<h4>there is 0 links is broken.</h4><br>"
+            }
+            else{
+                body="<h4>there is "+brokenlinkArr.length+" links is broken.</h4><br>"
+
+                console.log(brokenlinkArr)
+                _.each(brokenlinkArr, function(link) { 
+                    console.log(link);
+                    body+="<p>"+link+"</p><br>"
+                });
+            }
+
+            // console.log("returnValue1");
+            // console.log(returnValue1);
+                checkAPI.sendemail(body,{
+                    success: function (returnValue2){
+                        response.success(returnValue2);
+                    },
+                    error: function (error2){
+                        response.error(error);
+                    }
+                });
+                // response.success(returnValue);
+            },
+            error: function (error){
+                response.error(error);
+            }
+        });
+});
 
 
 module.exports = AV.Cloud;
