@@ -1,5 +1,36 @@
-<br />
-<input class="form-control" type="text" ng-model="item[attr.name]"   disabled="disabled">
-<br />
+<br>
+<input
+  ng-show="item.mode == 'VR'"
+  class="form-control form-control-vr"
+  type="text"
+  ng-model="item.android_object_url"
+  disabled="disabled">
+<input
+  ng-show="item.mode == 'AR'"
+  class="form-control form-control-ar"
+  type="text"
+  ng-model="item[attr.name]"
+  disabled="disabled">
+<input
+  ng-show="item.brand"
+  class="form-control form-control-vr"
+  type="text"
+  ng-model="item[attr.name]"
+  disabled="disabled">
+<br>
 <input type="file" title="選擇檔案" >
 <span class="bg-info" >{{info}}</span>
+
+<!-- For Angular's delay -->
+<style ng-if="item.mode == 'VR'">
+  .ios_object_url,
+  .form-control-ar {
+    display: none;
+  }
+</style>
+
+<style ng-if="item.mode == 'AR'">
+  .form-control-vr {
+    display: none;
+  }
+</style>

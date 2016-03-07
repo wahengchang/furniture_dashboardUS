@@ -63,6 +63,7 @@
         .factory('getFileRest', function(getParseRest, appId, restKey, getSession) {
             return function() {
                 return getParseRest(appId, restKey, getSession(), 'https://us-api.leancloud.cn/1.1/files/', true);
+                // return getParseRest(appId, restKey, getSession(), 'https://api.leancloud.cn/1.1/files/', true);
             };
         })
         .factory('getClassRest', function(getParseRest, appId, restKey, getSession) {
@@ -73,12 +74,14 @@
         .factory('getBaseRest', function(getParseRest, appId, restKey, getSession) {
             return function() {
                 return getParseRest(appId, restKey, getSession(), 'https://us-api.leancloud.cn/1.1/');
+                // return getParseRest(appId, restKey, getSession(), 'https://api.leancloud.cn/1.1/');
             };
         })
 
     .factory('getFunctionsRest', function(getParseRest, appId, restKey, getSession) {
         return function() {
             return getParseRest(appId, restKey, getSession(), 'https://us-api.leancloud.cn/1.1/functions/');
+            // return getParseRest(appId, restKey, getSession(), 'https://api.leancloud.cn/1.1/functions/');
         };
     })
 
@@ -90,6 +93,7 @@
                     RestangularConfigurer.setBaseUrl(baseUrl);
                 } else {
                     RestangularConfigurer.setBaseUrl('https://us-api.leancloud.cn/1.1/classes/');
+                    // RestangularConfigurer.setBaseUrl('https://api.leancloud.cn/1.1/classes/');
                     RestangularConfigurer.addRequestInterceptor(function(element, operation) {
                         if ('put' === operation) {
                             delete element.createdAt;
@@ -3532,9 +3536,6 @@ angular.module('app')
             itemsPerPage = 10,
             configs = $state.current.data;
 
-            console.log("CommonListPageCtrl");
-            console.log(configs);
-
         $scope.configs = configs;
         $scope.totalItems = 0;
         $scope.itemsPerPage = itemsPerPage;
@@ -3909,7 +3910,7 @@ angular.module('app')
 
                 _.each(attrs, function(attr, index) {
 
-                    var formGroup = $('<div class="form-group">');
+                    var formGroup = $('<div class="form-group ' + attr.name + '">');
                     if (attr.title) {
                         $('<label>')
                             .text(attr.title)
