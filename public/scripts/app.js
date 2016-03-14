@@ -4247,6 +4247,11 @@ angular.module('app')
 
                         dialog.info('上傳完成', function() {
                             $scope.item[$scope.attr.name] = res.downloadlink;
+
+                            if ($scope.item.mode === 'VR' && $scope.item.route === "InteriorDesign") {
+                              console.log($scope.item.route)
+                              $scope.item.ios_object_url = $scope.item.android_object_url
+                            }
                         });
                     });
                 });

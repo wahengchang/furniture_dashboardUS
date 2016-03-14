@@ -1,4 +1,5 @@
 <br>
+<!-- Style page VR -->
 <input
   ng-show="item.mode == 'VR'"
   class="form-control form-control-vr"
@@ -6,11 +7,19 @@
   ng-model="item.android_object_url"
   disabled="disabled">
 <input
+  ng-show="item.mode == 'VR'"
+  class="form-control form-control-vr form-control-ios"
+  type="text"
+  ng-model="item.ios_object_url"
+  disabled="disabled">
+<!-- Style page AR -->
+<input
   ng-show="item.mode == 'AR'"
   class="form-control form-control-ar"
   type="text"
   ng-model="item[attr.name]"
   disabled="disabled">
+<!-- Brand page VR -->
 <input
   ng-show="item.brand"
   class="form-control form-control-vr"
@@ -24,6 +33,7 @@
 <!-- For Angular's delay -->
 <style ng-if="item.mode == 'VR'">
   .ios_object_url,
+  .form-control-ios,
   .form-control-ar {
     display: none;
   }
